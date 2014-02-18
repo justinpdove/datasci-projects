@@ -1,33 +1,46 @@
+# This is a simple script created for a Coursera data science project to count the frequency of unique words
+# in an entire list of tweets. It's not much, but it's something I did.
+
 import os
 import sys
 import json
 
-data = [] # define a list to contain all Twitter info
+# define a list to contain all Twitter info
+data = [] 
 
 for line in open(sys.argv[1]):
     try:
-    	data.append(json.loads(line.encode('utf-8'))) # Adding each line of the tweet file into the data list.
+    	# Adding each line of the tweet file into the data list.
+    	data.append(json.loads(line.encode('utf-8'))) 
     except:
     	pass
     
 def loadTweetList():
-	allTweets = [] # define a list to contain all words in the Tweets
+	# define a list to contain all words in the Tweets
+	allTweets = [] 
 	for i in range(len(data)):
-		if 'text' in data[i].keys(): # look for text key in data list item
-			for word in data[i]['text'].split(): # split Tweet into words, add words into the list
-				allTweets.append(word.strip().lower()) # clean, lowercase entries into allTweets list
+		# look for text key in data list item
+		if 'text' in data[i].keys(): 
+			# split Tweet into words, add words into the list
+			for word in data[i]['text'].split(): 
+				# clean, lowercase entries into allTweets list
+				allTweets.append(word.strip().lower()) 
 	return allTweets
 
 def wordCounter(wordList):
-	for i in list(wordList): # cycle through the unique words in the tweet list
-		tweetCounter = 0 # initialize counter
-		for j in wordList: # cycle through all of the words in the tweet list
-			if j.strip().lower() == i: # compare lowercase, clean word to unique value
+	# cycle through the unique words in the tweet list
+	for i in list(wordList): 
+		# initialize counter
+		tweetCounter = 0 
+		# cycle through all of the words in the tweet list
+		for j in wordList: 
+			# compare lowercase, clean word to unique value
+			if j.strip().lower() == i: 
 				tweetCounter += 1
 			else:
 				tweetCounter += 0
-		#print i.lower() + ":", float(tweetCounter/len(wordList))
-		print i, float(tweetCounter)/len(wordList) # divide float counter by total values in list
+		# divide float counter by total values in list		
+		print i, float(tweetCounter)/len(wordList) 
 		
 wordCounter(loadTweetList())
 
